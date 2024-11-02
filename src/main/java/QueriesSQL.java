@@ -10,21 +10,22 @@ public class QueriesSQL {
         String username = "root";
         String password = "Password123@";
 
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             Statement statement = connection.createStatement()) {
-            String query = "SELECT * FROM customers";
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-
-                System.out.println("id: " + resultSet.getInt("customerNumber")
-                        + "  ||  Name: " + resultSet.getString("customerName"));
-
-            }
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            executeQueryAndPrint(connection, "SELECT * FROM customers");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-}
 
+    private static void executeQueryAndPrint(Connection connection, String query) throws Exception {
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                System.out.println("id: " + resultSet.getInt("customerNumber")
+                        + "  ||  Name: " + resultSet.getString("customerName"));
+            }
+        }
+    }
+}
