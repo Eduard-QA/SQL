@@ -11,7 +11,8 @@ public class QueriesSQL {
         String password = "Password123@";
 
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            executeQueryAndPrint(connection, "SELECT * FROM customers");
+            executeQueryAndPrint(connection, "select * from classicmodels.customers \n" +
+                    "where creditLimit>=50000 and creditLimit<=60000;");
 
         } catch (Exception e) {
             e.printStackTrace();
